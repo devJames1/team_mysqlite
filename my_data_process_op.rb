@@ -3,8 +3,12 @@ require "csv"
 
 # array_of_hashes = [{"name" => "tor", "age" => 2, "gender" => "M"}, {...}, {...}]
 def convert_csv_to_hash(csv_file)
+    array_of_hashes = []
+
     if File.exist?(csv_file)
-        array_of_hashes = CSV.parse(csv_file, headers: true).map(&:to_h)
+        CSV.foreach(csv_file, headers: true) do |row|
+            array_of_hashes << row.to_hash
+        end
         return array_of_hashes
     else
         puts 'File not found!'
