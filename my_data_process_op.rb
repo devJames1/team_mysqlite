@@ -19,19 +19,27 @@ end
 # # array_of_hashes = [{"name" => "tor", "age" => 2, "gender" => "M"}, {...}, {...}]
 # # result ->> name,birth_state,age
 # #           Andre,CA,60
-# def write_to_csv(array_of_hashes, csv_file)
-#     CSV.open(csv_file, "w", :headers => true) do |csv|
-#         if array_of_hashes.length == 0
-#             return
-#         end
-#         # first row must be the header
-#         csv << array_of_hashes[0].keys
+def write_to_csv(array_of_hashes, csv_file)
+    headers = array_of_hashes.first.keys
 
-#         array_of_hashes.each do |hash|
-#             csv << CSV::Row.new(hash.keys, hash.values)
-#         end
-#     end
-# end
+    if array_of_hashes.length != 0
+        CSV.open(csv_file, "w") do |csv_hash|
+            csv_hash << headers
+            array_of_hashes.each do |row|
+                csv_hash << row.values
+            end
+        end
+    else
+        return
+    end
+        # first row must be the header
+    #     csv << array_of_hashes[0].keys
+
+    #     array_of_hashes.each do |hash|
+    #         csv << CSV::Row.new(hash.keys, hash.values)
+    #     end
+    # end
+end
 
 # # array_of_hashes = [{"name" => "tor", "age" => 2, "gender" => "M"}, {...}, {...}]
 # # array_of_columns = ["name", "age"] OR string ("name")
@@ -176,4 +184,12 @@ end
 ####################################
 ## Tests
 ####################################
-p convert_csv_to_hash('students.csv')
+my_csv_file = 'students.csv'
+my_array_of_hashes = [{"name"=>"James", "email"=>"james@james.com", "grade"=>"A+", "blog"=>"https://blog.jamendoe.com"}]
+my_csv_hash = convert_csv_to_hash(my_csv_file)
+
+my_array_of_hashes.select do |rows|
+    my_csv_hash << rows
+end
+
+write_to_csv(my_csv_hash, 'students.csv')
