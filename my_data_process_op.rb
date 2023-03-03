@@ -32,13 +32,7 @@ def write_to_csv(array_of_hashes, csv_file)
     else
         return
     end
-        # first row must be the header
-    #     csv << array_of_hashes[0].keys
 
-    #     array_of_hashes.each do |hash|
-    #         csv << CSV::Row.new(hash.keys, hash.values)
-    #     end
-    # end
 end
 
 # # array_of_hashes = [{"name" => "tor", "age" => 2, "gender" => "M"}, {...}, {...}]
