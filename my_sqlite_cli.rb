@@ -34,7 +34,7 @@ def process_request(action, args, request)
     
     when "from"
         if args.length != 1
-            puts "Ex.: FROM db.csv"
+            puts "Ex.: FROM csv_file.csv"
             return
         else
             request.from(*args)
@@ -108,7 +108,7 @@ def process_request(action, args, request)
 
     when "update"
         if args.length != 1
-            puts "Ex.: UPDATE db.csv"
+            puts "Ex.: UPDATE csv_file.csv"
         else
             request.update(*args)
         end
@@ -121,7 +121,7 @@ def process_request(action, args, request)
     when "delete"
         if args.length != 0
             # conditional statement to confirm deletion of table
-            puts "Ex.: DELETE FROM db.csv! Use WHERE - Or it may DELETE ALL."
+            puts "Ex.: DELETE FROM csv_file.csv! Use WHERE - Or it may DELETE ALL."
         else
             request.delete 
         end

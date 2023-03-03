@@ -91,25 +91,25 @@ class MySqliteRequest
 
     end
 
-    def nice_print_selection(returns)
+    # def nice_print_selection(returns)
 
-        if !returns
-            return
-        end
+    #     if !returns
+    #         return
+    #     end
 
-        if returns.length == 0
-            puts "Request has no returns"
-        else
-            puts returns.first.keys.join(' | ')
-            len = returns.first.keys.join(' | ').length
-            puts "-" * len
-            returns.each do |row|
-                puts row.values.join(' | ')
-            end
-            puts "-" * len
-        end
+    #     if returns.length == 0
+    #         puts "Request has no returns"
+    #     else
+    #         puts returns.first.keys.join(' | ')
+    #         len = returns.first.keys.join(' | ').length
+    #         puts "-" * len
+    #         returns.each do |row|
+    #             puts row.values.join(' | ')
+    #         end
+    #         puts "-" * len
+    #     end
 
-    end
+    # end
 
  
     # run all request
@@ -138,7 +138,8 @@ class MySqliteRequest
 
             if @columns != nil && @table_name != nil
                 result = get_hash_columns(array_of_hashes, @columns)
-                nice_print_selection(result)
+                # nice_print_selection(result)
+                p result
                 return result
             else
                 puts "No columns to select"
@@ -150,7 +151,7 @@ class MySqliteRequest
             if @data != nil
                 array_of_hashes = insert_operation(array_of_hashes, @data)
             end
-            write_to_db(array_of_hashes,  @table_name)
+            write_to_csv(array_of_hashes,  @table_name)
             return current_insert = array_of_hashes[(array_of_hashes.length) - 1]
         end
 
@@ -159,7 +160,7 @@ class MySqliteRequest
                 @where = {@where[:column] => @where[:value]}
             end
             array_of_hashes = update_operation(array_of_hashes, @where, @data)
-            write_to_db(array_of_hashes, @table_name)
+            write_to_csv(array_of_hashes, @table_name)
             return @data
         end
 
@@ -168,7 +169,7 @@ class MySqliteRequest
                 @where = {@where[:column] => @where[:value]}
             end
             array_of_hashes = delete_operations(array_of_hashes, @where)
-            write_to_db(array_of_hashes, @table_name)
+            write_to_csv(array_of_hashes, @table_name)
             return array_of_hashes
         end
 
